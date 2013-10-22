@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Aftership-php-sdk by abishekrsrikaanth</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Aftership-php-sdk</h1>
+        <p>PHP SDK to integrate with Aftership API</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/abishekrsrikaanth/aftership-php-sdk" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/abishekrsrikaanth/aftership-php-sdk/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/abishekrsrikaanth/aftership-php-sdk/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h3>
+<a name="aftership-php-sdk" class="anchor" href="#aftership-php-sdk"><span class="octicon octicon-link"></span></a>Aftership PHP SDK</h3>
+
+<h4>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h4>
+
+<p><strong>Using Composer</strong></p>
+
+<pre><code> "require": {
+        ....
+        "abishekrsrikaanth/aftership-php-sdk": "dev-master"
+    },
+</code></pre>
+
+<h4>
+<a name="get-all-our-supported-couriers-list" class="anchor" href="#get-all-our-supported-couriers-list"><span class="octicon octicon-link"></span></a>Get all our supported couriers list.</h4>
+
+<pre><code>require 'vendor/autoload.php';
+
+$courier = new AfterShip\Couriers('AFTERSHIP_API_KEY');
+$response = $courier-&gt;get();
+</code></pre>
+
+<h4>
+<a name="create-a-new-tracking-number" class="anchor" href="#create-a-new-tracking-number"><span class="octicon octicon-link"></span></a>Create a new tracking number</h4>
+
+<p><a href="https://www.aftership.com/docs/api/3.0/tracking/post-trackings#request">List of data for the API</a></p>
+
+<pre><code>require 'vendor/autoload.php';
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$tracking_info = array(
+    'slug'              =&gt; 'dhl',
+    'tracking_number'   =&gt; 'RA123456789US',
+
+);
+$response = $tracking-&gt;create($tracking_info);
+</code></pre>
+
+<h4>
+<a name="return-the-latest-100-created-trackings-in-past-30-days-from-the-user-account" class="anchor" href="#return-the-latest-100-created-trackings-in-past-30-days-from-the-user-account"><span class="octicon octicon-link"></span></a>Return the latest 100 created trackings in past 30 days from the user account.</h4>
+
+<p><a href="https://www.aftership.com/docs/api/3.0/tracking/get-trackings#request">List of allowed parameters for the options</a></p>
+
+<pre><code>require 'vendor/autoload.php';
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$options = array(
+    'page'=&gt;1,
+    'limit'=&gt;10
+);
+
+$response = $tracking-&gt;get($options)
+</code></pre>
+
+<h4>
+<a name="return-a-tracking-result-with-all-the-detail-checkpoints" class="anchor" href="#return-a-tracking-result-with-all-the-detail-checkpoints"><span class="octicon octicon-link"></span></a>Return a tracking result with all the detail checkpoints</h4>
+
+<p><a href="https://www.aftership.com/docs/api/3.0/tracking/get-trackings-slug-tracking_number#request">Fields for the request</a></p>
+
+<pre><code>require 'vendor/autoload.php';
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$response = $tracking-&gt;info('dhl','RA123456789US',array('title','order_id'));
+</code></pre>
+
+<h4>
+<a name="update-tracking-record-and-return-all-the-detail-exclude-the-checkpoints" class="anchor" href="#update-tracking-record-and-return-all-the-detail-exclude-the-checkpoints"><span class="octicon octicon-link"></span></a>Update tracking record and return all the detail, exclude the checkpoints</h4>
+
+<p><a href="https://www.aftership.com/docs/api/3.0/tracking/put-trackings-slug-tracking_number#request">List of allowed parameters</a></p>
+
+<pre><code>require 'vendor/autoload.php';
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$params = array(
+    'smses'             =&gt; array(),
+    'emails'            =&gt; array(),
+    'title'             =&gt; '',
+    'customer_name'     =&gt; '',
+    'order_id'          =&gt; '',
+    'order_id_path'     =&gt; '',
+    'custom_fields'     =&gt; array()
+);
+$response = $tracking-&gt;update('dhl','RA123456789US',$params);
+</code></pre>
+
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/abishekrsrikaanth/aftership-php-sdk/trend.png" alt="Bitdeli Badge"></a></p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/abishekrsrikaanth">abishekrsrikaanth</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
