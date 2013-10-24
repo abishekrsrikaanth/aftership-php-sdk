@@ -69,7 +69,7 @@ $response = $courier-&gt;get();
 
 <pre><code>require 'vendor/autoload.php';
 
-$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY');
 $tracking_info = array(
     'slug'              =&gt; 'dhl',
     'tracking_number'   =&gt; 'RA123456789US',
@@ -85,7 +85,7 @@ $response = $tracking-&gt;create($tracking_info);
 
 <pre><code>require 'vendor/autoload.php';
 
-$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY');
 $options = array(
     'page'=&gt;1,
     'limit'=&gt;10
@@ -101,7 +101,7 @@ $response = $tracking-&gt;get($options)
 
 <pre><code>require 'vendor/autoload.php';
 
-$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY');
 $response = $tracking-&gt;info('dhl','RA123456789US',array('title','order_id'));
 </code></pre>
 
@@ -112,7 +112,7 @@ $response = $tracking-&gt;info('dhl','RA123456789US',array('title','order_id'));
 
 <pre><code>require 'vendor/autoload.php';
 
-$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY);
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY');
 $params = array(
     'smses'             =&gt; array(),
     'emails'            =&gt; array(),
@@ -125,7 +125,22 @@ $params = array(
 $response = $tracking-&gt;update('dhl','RA123456789US',$params);
 </code></pre>
 
-<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/abishekrsrikaanth/aftership-php-sdk/trend.png" alt="Bitdeli Badge"></a></p>
+<h4>
+<a name="adding-guzzle-plugins" class="anchor" href="#adding-guzzle-plugins"><span class="octicon octicon-link"></span></a>Adding Guzzle Plugins</h4>
+
+<p><a href="http://guzzlephp.org/plugins/plugins-overview.html">Guzzle Plugins</a></p>
+
+<pre><code>require 'vendor/autoload.php';
+
+$history = new HistoryPlugin();
+$async = new AsyncPlugin();
+$logPlugin = new LogPlugin($adapter, MessageFormatter::DEBUG_FORMAT);
+
+$guzzlePlugins = array($history, $async, $logPlugin);
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY', $guzzlePlugins);
+$couriers = new AfterShip\Couriers('AFTERSHIP_API_KEY', $guzzlePlugins);
+</code></pre>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/abishekrsrikaanth">abishekrsrikaanth</a></p>
