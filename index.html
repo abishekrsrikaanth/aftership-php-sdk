@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Aftership-php-sdk by abishekrsrikaanth</title>
+    <title>AfterShip PHP SDK by abishekrsrikaanth</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
   <body>
 
       <header>
-        <h1>Aftership-php-sdk</h1>
+        <h1>AfterShip PHP SDK</h1>
         <p>PHP SDK to integrate with Aftership API</p>
       </header>
 
@@ -49,7 +49,7 @@
 
 <pre><code> "require": {
         ....
-        "abishekrsrikaanth/aftership-php-sdk": "dev-master"
+        "abishekrsrikaanth/aftership-php-sdk": "1.0"
     },
 </code></pre>
 
@@ -60,6 +60,15 @@
 
 $courier = new AfterShip\Couriers('AFTERSHIP_API_KEY');
 $response = $courier-&gt;get();
+</code></pre>
+
+<h4>
+<a name="detect-courier-by-tracking-number" class="anchor" href="#detect-courier-by-tracking-number"><span class="octicon octicon-link"></span></a>Detect courier by tracking number</h4>
+
+<pre><code>require 'vendor/autoload.php';
+
+$courier = new AfterShip\Couriers('AFTERSHIP_API_KEY');
+$response = $courier-&gt;detect('1234567890Z');
 </code></pre>
 
 <h4>
@@ -123,6 +132,24 @@ $params = array(
     'custom_fields'     =&gt; array()
 );
 $response = $tracking-&gt;update('dhl','RA123456789US',$params);
+</code></pre>
+
+<h4>
+<a name="reactivate-tracking" class="anchor" href="#reactivate-tracking"><span class="octicon octicon-link"></span></a>Reactivate Tracking</h4>
+
+<pre><code>require 'vendor/autoload.php';
+
+$tracking = new AfterShip\Tracking('AFTERSHIP_API_KEY');
+$response = $tracking-&gt;reactivate('dhl','RA123456789US');
+</code></pre>
+
+<h4>
+<a name="finding-last-checkpoint" class="anchor" href="#finding-last-checkpoint"><span class="octicon octicon-link"></span></a>Finding Last Checkpoint</h4>
+
+<pre><code>require 'vendor/autoload.php';
+
+$checkpoint = new AfterShip\LastCheckPoint('AFTERSHIP_API_KEY');
+$response = $checkpoint-&gt;get('dhl','RA123456789US');
 </code></pre>
 
 <h4>
