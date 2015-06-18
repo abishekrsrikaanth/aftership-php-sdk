@@ -2,16 +2,16 @@
 
 namespace AfterShip\Core;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Guzzle\Common\Exception\GuzzleException;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class Request
 {
     private $_api_url = 'https://api.aftership.com';
     protected $_api_key = '';
-    private $_api_version = 'v3';
+    protected $_api_version = 'v4';
     protected $_guzzle_plugins = array();
     private $_client;
 
@@ -45,6 +45,8 @@ class Request
             case "PUT":
                 $request = $this->_client->put($this->_api_url . '/' . $this->_api_version . '/' . $url, $headers, $data);
                 break;
+            case "DELETE":
+                $request = $this->_client->delete($this->_api_url . '/' . $this->_api_version . '/' . $url, $headers, $data);
         }
 
         try {

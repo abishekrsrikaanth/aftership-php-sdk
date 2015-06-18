@@ -11,7 +11,7 @@ use AfterShip\Core\Request;
  */
 class LastCheckPoint extends Request
 {
-    public function __construct ($api_key, $guzzle_plugins = array())
+    public function __construct($api_key, $guzzle_plugins = array(), $api_version = "4")
     {
         if (empty($api_key)) {
             throw new \Exception('API Key is missing');
@@ -24,6 +24,7 @@ class LastCheckPoint extends Request
         }
 
         parent::__construct();
+        $this->_api_version = "v" . $api_version;
     }
 
     /**
@@ -31,11 +32,12 @@ class LastCheckPoint extends Request
      *
      * @param $slug
      * @param $tracking_number
+     * @param array $options Pass optional Parameters
      *
      * @return mixed
      * @throws \Exception
      */
-    public function get ($slug, $tracking_number)
+    public function get($slug, $tracking_number, $options = array())
     {
         if (empty($slug)) {
             throw new \Exception("Slug cannot be empty");
@@ -45,6 +47,6 @@ class LastCheckPoint extends Request
             throw new \Exception('Tracking number cannot be empty');
         }
 
-        return $this->send('last_checkpoint/' . $slug . '/' . $tracking_number, 'GET');
+        return $this->send('last_checkpoint/' . $slug . '/' . $tracking_number, 'GET', $options);
     }
 } 
